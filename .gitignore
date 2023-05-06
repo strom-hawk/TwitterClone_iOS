@@ -1,0 +1,20 @@
+# Xcode
+## Build generated
+build/
+DerivedData/ 
+
+## Various settings
+*.pbxuser
+xcuserdata/
+
+# Carthage
+#
+# Add this line if you want to avoid checking in source code from Carthage dependencies.
+# Carthage/Checkouts/
+
+Carthage/Build/
+
+# Cocoapods
+Pods/
+.DS_Store
+Podfile.lock
