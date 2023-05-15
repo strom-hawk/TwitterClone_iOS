@@ -62,7 +62,6 @@ struct TweetRowView: View {
             }
             .padding()
         }
-        .padding()
         Divider()
     }
 }

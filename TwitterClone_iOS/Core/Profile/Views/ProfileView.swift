@@ -8,13 +8,17 @@
 import SwiftUI
 
 struct ProfileView: View {
+    @State private var selectedFilter = TweetFilterViewModel.tweets
+    @Namespace var animation
+    @Environment(\.presentationMode) var mode
+    
     var body: some View {
-        VStack {
+        VStack(alignment: .leading) {
             headerView
             actionButtons
             userInfoDetails
-            
-            
+            tweetFilterBar
+            tweetsView
             Spacer()
         }
     }
@@ -27,6 +31,7 @@ struct ProfileView_Previews: PreviewProvider {
 }
 
 extension ProfileView {
+    //Header view for profile page.
     var headerView: some View {
         ZStack(alignment: .bottomLeading) {
             Color(.systemBlue)
@@ -34,7 +39,7 @@ extension ProfileView {
             
             VStack {
                 Button {
-                    
+                    mode.wrappedValue.dismiss()
                 } label: {
                     Image(systemName: "arrow.left")
                         .resizable()
@@ -51,6 +56,7 @@ extension ProfileView {
         .frame(height: 96)
     }
     
+    //Action buttons view.
     var actionButtons: some View {
         HStack(spacing: 12){
             Spacer()
@@ -74,6 +80,7 @@ extension ProfileView {
         .padding(.trailing)
     }
     
+    //User info details view.
     var userInfoDetails: some View {
         VStack(alignment: .leading, spacing: 4) {
             HStack {
@@ -111,30 +118,51 @@ extension ProfileView {
                 }
             }
             
-            HStack(spacing: 24) {
-                HStack(alignment: .center) {
-                    Text("0")
-                        .font(.subheadline)
-                        .bold()
-                        
-                    
-                    Text("Following")
-                        .font(.caption)
-                        .foregroundColor(.gray)
-                }
-                
-                HStack(alignment: .center) {
-                    Text("0")
-                        .font(.subheadline)
-                        .bold()
-                        
-                    
-                    Text("Followers")
-                        .font(.caption)
-                        .foregroundColor(.gray)
-                }
-            }.padding(.vertical)
+            UserStatsView().padding(.vertical)
         }
         .padding(.horizontal)
+    }
+    
+    //Tweets filter view
+    var tweetFilterBar: some View {
+        HStack {
+            ForEach(TweetFilterViewModel.allCases, id: \.rawValue){ item in
+                VStack {
+                    Text(item.title)
+                        .font(.subheadline)
+                        .fontWeight(selectedFilter == item ? .semibold : .regular)
+                        .foregroundColor(selectedFilter == item ? .black : .gray)
+                    
+                    if(selectedFilter == item) {
+                        Capsule()
+                            .foregroundColor(Color(.systemBlue))
+                            .frame(height: 3)
+                            .matchedGeometryEffect(id: "filter", in: animation)
+                    } else {
+                        Capsule()
+                            .foregroundColor(Color(.clear))
+                            .frame(height: 3)
+                    }
+                }
+                .onTapGesture {
+                    withAnimation(.easeOut) {
+                        self.selectedFilter = item
+                    }
+                }
+            }
+        }
+        .overlay(Divider().offset(x: 0, y: 16))
+    }
+    
+    //Tweets View
+    var tweetsView: some View {
+        ScrollView {
+            LazyVStack {
+                ForEach(0 ... 9, id: \.self) { _ in
+                    TweetRowView()
+                        .padding([.leading, .trailing, .top], 16)
+                }
+            }
+        }
     }
 }
