@@ -24,12 +24,6 @@ struct ProfileView: View {
     }
 }
 
-struct ProfileView_Previews: PreviewProvider {
-    static var previews: some View {
-        ProfileView()
-    }
-}
-
 extension ProfileView {
     //Header view for profile page.
     var headerView: some View {
@@ -164,5 +158,12 @@ extension ProfileView {
                 }
             }
         }
+    }
+}
+
+//Preview
+struct ProfileView_Previews: PreviewProvider {
+    static var previews: some View {
+        ProfileView()
     }
 }
