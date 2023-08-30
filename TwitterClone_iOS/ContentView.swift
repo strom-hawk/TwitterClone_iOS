@@ -9,11 +9,11 @@ import SwiftUI
 
 struct ContentView: View {
     @State private var showMenu = false
-    @EnvironmentObject var viewModel: AuthViewModel
+    @EnvironmentObject var authViewModel: AuthViewModel
     
     var body: some View {
         Group {
-            if viewModel.userSession == nil {
+            if authViewModel.userSession == nil {
                 LoginView()
             } else {
                 landingView
