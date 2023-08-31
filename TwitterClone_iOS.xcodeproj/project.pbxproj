@@ -28,6 +28,7 @@
 		FCB120CE2A9F3AF3000A4BE2 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB120CD2A9F3AF3000A4BE2 /* ImagePicker.swift */; };
 		FCB120D02A9F4F9E000A4BE2 /* ImageUploader.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB120CF2A9F4F9E000A4BE2 /* ImageUploader.swift */; };
 		FCB7C3552A0A4015009F36DA /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB7C3542A0A4015009F36DA /* ProfileView.swift */; };
+		FCBD12092AA0635200C77086 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCBD12082AA0635200C77086 /* UserService.swift */; };
 		FCCCCE092A123BD6008FD194 /* SideMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCCCCE082A123BD6008FD194 /* SideMenuView.swift */; };
 		FCCCCE0B2A123BE7008FD194 /* SideMenuRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCCCCE0A2A123BE7008FD194 /* SideMenuRowView.swift */; };
 		FCCCCE0D2A123BF4008FD194 /* SideMenuViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCCCCE0C2A123BF4008FD194 /* SideMenuViewModel.swift */; };
@@ -62,6 +63,7 @@
 		FCB120CD2A9F3AF3000A4BE2 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		FCB120CF2A9F4F9E000A4BE2 /* ImageUploader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUploader.swift; sourceTree = "<group>"; };
 		FCB7C3542A0A4015009F36DA /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		FCBD12082AA0635200C77086 /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
 		FCCCCE082A123BD6008FD194 /* SideMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuView.swift; sourceTree = "<group>"; };
 		FCCCCE0A2A123BE7008FD194 /* SideMenuRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuRowView.swift; sourceTree = "<group>"; };
 		FCCCCE0C2A123BF4008FD194 /* SideMenuViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuViewModel.swift; sourceTree = "<group>"; };
@@ -333,6 +335,7 @@
 			isa = PBXGroup;
 			children = (
 				FCB120CF2A9F4F9E000A4BE2 /* ImageUploader.swift */,
+				FCBD12082AA0635200C77086 /* UserService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -492,6 +495,7 @@
 				FC3827F42A9B0CF400F1F36B /* CustomTextInputField.swift in Sources */,
 				FC3827F92A9B0F6300F1F36B /* AuthHeaderView.swift in Sources */,
 				FCEC770B2A0625600051D16E /* TwitterClone_iOSApp.swift in Sources */,
+				FCBD12092AA0635200C77086 /* UserService.swift in Sources */,
 				FC731CAA2A14E2C300693905 /* SideMenuOptionRowView.swift in Sources */,
 				FC5BC1A72A9F0AC500FAA58A /* ProfilePhotoSelectorView.swift in Sources */,
 				FCD82A252A06B693001D38B6 /* ExploreView.swift in Sources */,
