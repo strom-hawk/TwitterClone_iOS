@@ -15,13 +15,15 @@ struct SideMenuView: View {
         VStack(alignment: .leading, spacing: 40)  {
             if let user = authViewModel.currentUser {
                 userInfoView(user)
-                userSideMenuOptions
+                userSideMenuOptions(user)
             }
             Spacer()
         }
         .padding()
     }
-    
+}
+
+extension SideMenuView {
     func userInfoView(_ user: User) -> some View {
         VStack(alignment: .leading) {
             AppImage(imageUrl: user.profileImageUrl, width: 48, height: 48)
@@ -41,12 +43,12 @@ struct SideMenuView: View {
         }
     }
     
-    var userSideMenuOptions: some View {
+    func userSideMenuOptions(_ user: User) -> some View {
         VStack {
             ForEach(SideMenuViewModel.allCases, id: \.rawValue) { viewModel in
                 if(viewModel == .profile) {
                     NavigationLink {
-                        ProfileView()
+                        ProfileView(user: user)
                     } label: {
                         SideMenuOptionRowView(viewModel: viewModel)
                     }

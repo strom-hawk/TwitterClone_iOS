@@ -14,3 +14,15 @@ struct User: Identifiable, Decodable {
     let profileImageUrl: String
     let email: String
 }
+
+extension User {
+    static func getDummyUser() -> User {
+        return User(
+            id: "001",
+            username: "Dummy User",
+            fullname: "Dummy User full name",
+            profileImageUrl: "Dummy user profile pic url",
+            email: "dummyuser@user.com"
+        )
+    }
+}
