@@ -11,6 +11,7 @@ import Firebase
 class AuthViewModel: ObservableObject {
     @Published var userSession: FirebaseAuth.User?
     @Published var didAuthenticateUser   = false
+    @Published var currentUser: User?
     
     private var tempUserSession: FirebaseAuth.User?
     private let userService = UserService()
@@ -71,7 +72,6 @@ class AuthViewModel: ObservableObject {
                 .document(uid)
                 .updateData(["profileImageUrl": profileImageUrl]) { _ in
                     self.userSession = self.tempUserSession
-                    print("Debug: user session: \(self.userSession?.uid)")
                 }
         }
     }
@@ -79,6 +79,8 @@ class AuthViewModel: ObservableObject {
     func fetchUser() {
         guard let uid = self.userSession?.uid else { return }
         
-        userService.fetchUser(withUid: uid)
+        userService.fetchUser(withUid: uid) { user in
+            self.currentUser = user
+        }
     }
 }

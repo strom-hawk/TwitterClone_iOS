@@ -50,14 +50,18 @@ extension ContentView {
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
-                Button {
-                    withAnimation(.easeInOut) {
-                        showMenu.toggle()
+                if let user = self.authViewModel.currentUser {
+                    Button {
+                        withAnimation(.easeInOut) {
+                            showMenu.toggle()
+                        }
+                    } label: {
+                        AppImage(
+                            imageUrl: user.profileImageUrl,
+                            width: 32,
+                            height: 32
+                        )
                     }
-                } label: {
-                    Circle()
-                        .frame(width: 32, height: 32)
-
                 }
 
             }

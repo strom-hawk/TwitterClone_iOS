@@ -6,30 +6,33 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct SideMenuView: View {
     @EnvironmentObject var authViewModel: AuthViewModel
     
     var body: some View {
         VStack(alignment: .leading, spacing: 40)  {
-            userInfoView
-            userSideMenuOptions
+            if let user = authViewModel.currentUser {
+                userInfoView(user)
+                userSideMenuOptions
+            }
             Spacer()
         }
         .padding()
     }
     
-    var userInfoView: some View {
+    func userInfoView(_ user: User) -> some View {
         VStack(alignment: .leading) {
-            Circle().frame(width: 50, height: 50)
+            AppImage(imageUrl: user.profileImageUrl, width: 48, height: 48)
             
             VStack(alignment: .leading, spacing: 4) {
-                Text("User Name")
+                Text(user.fullname)
                     .font(.headline)
                     .bold()
                     .foregroundColor(.black)
                 
-                Text("@user-name")
+                Text("@\(user.username)")
                     .foregroundColor(.gray)
                     .font(.caption)
             }
