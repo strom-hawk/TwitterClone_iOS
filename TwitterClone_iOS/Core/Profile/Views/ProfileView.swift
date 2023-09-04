@@ -27,6 +27,7 @@ struct ProfileView: View {
             tweetsView
             Spacer()
         }
+        .navigationBarHidden(true)
     }
 }
 
@@ -45,7 +46,7 @@ extension ProfileView {
                         .resizable()
                         .frame(width: 20, height: 16)
                         .foregroundColor(.white)
-                        .offset(x: 0, y: -20)
+                        .offset(x: 0, y: 0)
                 }
                 
                 AppImage(imageUrl: user.profileImageUrl, width: 72, height: 72)
