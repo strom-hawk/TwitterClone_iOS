@@ -8,66 +8,70 @@
 import SwiftUI
 
 struct TweetRowView: View {
+    private let tweet: Tweet
+    
+    init(tweet: Tweet) {
+        self.tweet = tweet
+    }
+    
     var body: some View {
-        VStack(alignment: .leading) {
-            //Profile image + user info + actionable items
-            HStack(alignment: .top, spacing: 12) {
-                //Profile image view.
-                Circle()
-                    .frame(width: 56, height: 56)
-                    .foregroundColor(Color(.systemBlue))
-                
-                //Name + domain + time frame
-                VStack(alignment: .leading, spacing: 4) {
-                    HStack{
-                        Text("Bruce Wayne")
+        if let user = tweet.user {
+            VStack(alignment: .leading, spacing: 16) {
+                HStack(alignment: .top, spacing: 12) {
+                    AppImage(imageUrl: user.profileImageUrl, width: 56, height: 56)
+                    
+                    VStack(alignment: .leading, spacing: 4) {
+                        HStack{
+                            Text(user.fullname)
+                                .font(.subheadline)
+                                .bold()
+                            Text("@\(user.username)")
+                                .foregroundColor(.gray)
+                                .font(.caption)
+                            Circle()
+                                .frame(width: 5, height: 5)
+                                .foregroundColor(Color(.gray))
+                            Text("49w")
+                                .foregroundColor(.gray)
+                                .font(.caption)
+                        }
+                        Text(tweet.caption)
                             .font(.subheadline)
-                            .bold()
-                        Text("@batman")
-                            .foregroundColor(.gray)
-                            .font(.caption)
-                        Circle()
-                            .frame(width: 5, height: 5)
-                            .foregroundColor(Color(.gray))
-                        Text("49w")
-                            .foregroundColor(.gray)
-                            .font(.caption)
+                            .multilineTextAlignment(.leading)
                     }
-                    Text("Bruce Wayne")
-                        .font(.subheadline)
-                        .multilineTextAlignment(.leading)
+                    
                 }
-                
-            }
-            HStack {
-                Button {} label: {
-                    Image(systemName: "bubble.left")
-                        .font(.subheadline)
-                }
-                Spacer()
-                Button {} label: {
-                    Image(systemName: "arrow.2.squarepath")
-                        .font(.subheadline)
-                }
-                Spacer()
-                Button {} label: {
-                    Image(systemName: "heart")
-                        .font(.subheadline)
-                }
-                Spacer()
-                Button {} label: {
-                    Image(systemName: "bookmark")
-                        .font(.subheadline)
+                HStack {
+                    Button {} label: {
+                        Image(systemName: "bubble.left")
+                            .font(.subheadline)
+                    }
+                    Spacer()
+                    Button {} label: {
+                        Image(systemName: "arrow.2.squarepath")
+                            .font(.subheadline)
+                    }
+                    Spacer()
+                    Button {} label: {
+                        Image(systemName: "heart")
+                            .font(.subheadline)
+                    }
+                    Spacer()
+                    Button {} label: {
+                        Image(systemName: "bookmark")
+                            .font(.subheadline)
+                    }
                 }
             }
-            .padding()
+            .padding(.horizontal, 16)
+            .padding(.vertical, 16)
+            Divider()
         }
-        Divider()
     }
 }
 
 struct TweetRowView_Previews: PreviewProvider {
     static var previews: some View {
-        TweetRowView()
+        TweetRowView(tweet: Tweet.getDummyTweet())
     }
 }
