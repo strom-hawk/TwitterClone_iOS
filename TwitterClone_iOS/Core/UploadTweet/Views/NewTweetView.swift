@@ -10,6 +10,8 @@ import SwiftUI
 struct NewTweetView: View {
     @State private var caption = ""
     @Environment(\.presentationMode) var presentationMode
+    @EnvironmentObject var authViewModel: AuthViewModel
+    @ObservedObject var newTweetViewModel = NewTweetViewModel()
     
     var body: some View {
         VStack(alignment: .leading){
@@ -24,7 +26,7 @@ struct NewTweetView: View {
                 Spacer()
                 
                 Button{
-                    print("Tweet clicked")
+                    newTweetViewModel.uploadTweet(withCaption: caption)
                 }label: {
                     Text("Tweet")
                         .bold()
@@ -38,15 +40,18 @@ struct NewTweetView: View {
             .padding(.horizontal, 16)
             
             HStack(alignment: .top){
-                Circle()
-                    .frame(width: 64, height: 64)
-                    .padding(.top, 12)
+                AppImage(imageUrl: authViewModel.currentUser?.profileImageUrl ?? "", width: 64, height: 64)
                 TextArea("What's happening?", text: $caption)
             }
             .padding(.horizontal, 16)
             .padding(.vertical, 2)
             
             Spacer()
+        }
+        .onReceive(newTweetViewModel.$uploadTweetStatus) { success in
+            if success {
+                presentationMode.wrappedValue.dismiss()
+            }
         }
     }
 }
