@@ -12,10 +12,10 @@ struct ProfileView: View {
     @Namespace var animation
     @Environment(\.presentationMode) var mode
     
-    private let user: User
+    @ObservedObject var profileViewModel: ProfileViewModel
     
     init(user: User) {
-        self.user = user
+        self.profileViewModel = ProfileViewModel(user: user)
     }
     
     var body: some View {
@@ -49,7 +49,7 @@ extension ProfileView {
                         .offset(x: 0, y: 0)
                 }
                 
-                AppImage(imageUrl: user.profileImageUrl, width: 72, height: 72)
+                AppImage(imageUrl: profileViewModel.user.profileImageUrl, width: 72, height: 72)
                     .offset(x: 16, y: 24)
             }
         }
@@ -84,7 +84,7 @@ extension ProfileView {
     var userInfoDetails: some View {
         VStack(alignment: .leading, spacing: 4) {
             HStack {
-                Text(user.fullname)
+                Text(profileViewModel.user.fullname)
                     .font(.title2)
                     .bold()
                 Image(systemName: "checkmark.seal.fill")
@@ -92,7 +92,7 @@ extension ProfileView {
                 Spacer()
             }
             
-            Text("@\(user.username)")
+            Text("@\(profileViewModel.user.username)")
                 .font(.subheadline)
                 .foregroundColor(.gray)
             
@@ -157,11 +157,17 @@ extension ProfileView {
     //Tweets View
     var tweetsView: some View {
         ScrollView {
-            LazyVStack {
-                ForEach(0 ... 9, id: \.self) { _ in
-//                    TODO::
-//                    TweetRowView()
-//                        .padding([.leading, .trailing, .top], 16)
+            if $profileViewModel.userProfileTweets.isEmpty {
+                Text("No tweets yet...")
+                    .frame(maxWidth: .infinity, alignment: .center)
+                    .padding(.top, 20)
+                
+            } else {
+                LazyVStack {
+                    ForEach($profileViewModel.userProfileTweets) { tweet in
+                        TweetRowView(tweet: tweet.wrappedValue)
+                            .padding([.leading, .trailing, .top], 16)
+                    }
                 }
             }
         }

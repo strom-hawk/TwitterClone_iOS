@@ -8,14 +8,14 @@
 import SwiftUI
 
 struct TweetRowView: View {
-    private let tweet: Tweet
+    private let tweetRowViewModel: TweetRowViewModel
     
     init(tweet: Tweet) {
-        self.tweet = tweet
+        self.tweetRowViewModel = TweetRowViewModel(tweet: tweet)
     }
     
     var body: some View {
-        if let user = tweet.user {
+        if let user = tweetRowViewModel.tweet.user {
             VStack(alignment: .leading, spacing: 16) {
                 HStack(alignment: .top, spacing: 12) {
                     AppImage(imageUrl: user.profileImageUrl, width: 56, height: 56)
@@ -35,7 +35,7 @@ struct TweetRowView: View {
                                 .foregroundColor(.gray)
                                 .font(.caption)
                         }
-                        Text(tweet.caption)
+                        Text(tweetRowViewModel.tweet.caption)
                             .font(.subheadline)
                             .multilineTextAlignment(.leading)
                     }
@@ -52,7 +52,9 @@ struct TweetRowView: View {
                             .font(.subheadline)
                     }
                     Spacer()
-                    Button {} label: {
+                    Button {
+                        tweetRowViewModel.likeTweet()
+                    } label: {
                         Image(systemName: "heart")
                             .font(.subheadline)
                     }
