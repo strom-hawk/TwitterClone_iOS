@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct TweetRowView: View {
-    private let tweetRowViewModel: TweetRowViewModel
+    @ObservedObject var tweetRowViewModel: TweetRowViewModel
     
     init(tweet: Tweet) {
         self.tweetRowViewModel = TweetRowViewModel(tweet: tweet)
@@ -53,10 +53,11 @@ struct TweetRowView: View {
                     }
                     Spacer()
                     Button {
-                        tweetRowViewModel.likeTweet()
+                        tweetRowViewModel.toggleLikeTweet()
                     } label: {
-                        Image(systemName: "heart")
+                        Image(systemName: tweetRowViewModel.tweet.didLike ?? false ? "heart.fill": "heart")
                             .font(.subheadline)
+                            .foregroundColor(tweetRowViewModel.tweet.didLike ?? false ? .red: .gray)
                     }
                     Spacer()
                     Button {} label: {

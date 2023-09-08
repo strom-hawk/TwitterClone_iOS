@@ -6,6 +6,7 @@
 //
 
 import Firebase
+import FirebaseFirestoreSwift
 
 struct TweetService {
     func uploadTweet(caption: String, completion: @escaping(Bool) -> Void) {
@@ -59,7 +60,45 @@ struct TweetService {
         }
     }
     
-    func likeTweet() {
-        print("_Debug: like tweet clicked")
+    func likeTweet(_ tweet: Tweet, completion: @escaping(Bool) -> Void) {
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        guard let tweetId = tweet.id else { return }
+        
+        let userLikeRef = Firestore.firestore().collection("user").document(uid).collection("user_likes")
+        
+        Firestore.firestore().collection("tweets").document(tweetId)
+            .updateData(["likes": tweet.likes + 1]) { _ in
+                userLikeRef.document(tweetId).setData([:]) { error in
+                    completion(true)
+                }
+            }
+    }
+    
+    func unLikeTweet(_ tweet: Tweet, completion: @escaping(Bool) -> Void) {
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        guard let tweetId = tweet.id else { return }
+        guard tweet.likes > 0 else { return }
+        
+        let userLikeRef = Firestore.firestore().collection("user").document(uid).collection("user_likes")
+        
+        Firestore.firestore().collection("tweets").document(tweetId)
+            .updateData(["likes": tweet.likes - 1]) { _ in
+                userLikeRef.document(tweetId).delete { error in
+                    completion(true)
+                }
+            }
+    }
+    
+    func checkIfUserLikedATweet(_ tweet: Tweet,completion: @escaping(Bool) -> Void) {
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+        guard let tweetId = tweet.id else { return }
+        
+        Firestore.firestore().collection("user")
+            .document(uid)
+            .collection("user_likes")
+            .document(tweetId).getDocument { snapshot, _ in
+                guard let snapshot = snapshot else { return }
+                completion(snapshot.exists)
+            }
     }
 }
